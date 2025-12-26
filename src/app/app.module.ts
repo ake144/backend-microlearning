@@ -4,12 +4,14 @@ import { AppConfigModule } from 'src/config/app.config';
 import { ConfigModule } from '@nestjs/config';
 import { SharedModule } from 'src/core/shared.module';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { PrismaModule } from 'src/database/prisma.module';
 
 @Module({
   imports: [
     AppConfigModule,
     ConfigModule,
     CoreModule,
+    PrismaModule,
 
     SharedModule,
 
@@ -20,7 +22,9 @@ import { ThrottlerModule } from '@nestjs/throttler';
       }],
     }),
 
-    
+
+
+
     
 
   ],

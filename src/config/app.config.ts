@@ -14,7 +14,7 @@ const configModule = ConfigModule.forRoot({
 
 @Module({
     imports: [configModule],
-    controllers: [],
+    exports: [ConfigModule],
 })
 
 export class AppConfigModule {}
