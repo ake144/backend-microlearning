@@ -5,6 +5,13 @@ import { ConfigModule } from '@nestjs/config';
 import { SharedModule } from 'src/core/shared.module';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { PrismaModule } from 'src/database/prisma.module';
+import { UsersModule } from './modules/users/users.module';
+import { AuthModule } from './modules/auth-module/auth.module';
+import { CourseModule } from './modules/course/course.module';
+import { ProgressModule } from './modules/progress/progress.module';
+import { PaymentModule } from './modules/payment/payment.module';
+import { NotesModule } from './modules/notes/notes.module';
+import { FlashcardModule } from './modules/flashcard/flashcard.module';
 
 @Module({
   imports: [
@@ -12,6 +19,13 @@ import { PrismaModule } from 'src/database/prisma.module';
     ConfigModule,
     CoreModule,
     PrismaModule,
+    UsersModule,
+    AuthModule,
+    CourseModule,
+    ProgressModule,
+    PaymentModule,
+    NotesModule,
+    FlashcardModule,
 
     SharedModule,
 
@@ -21,12 +35,6 @@ import { PrismaModule } from 'src/database/prisma.module';
         limit: 10,
       }],
     }),
-
-
-
-
-    
-
   ],
   controllers: [],
   providers: [],

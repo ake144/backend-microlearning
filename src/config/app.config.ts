@@ -5,7 +5,7 @@ import { validationSchema } from "./vaidation";
 
 const configModule = ConfigModule.forRoot({
     isGlobal: true,
-    envFilePath: `../.env`,
+    envFilePath: `./.env`,
 
     load:[configuration],
     validationSchema: validationSchema

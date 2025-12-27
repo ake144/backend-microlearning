@@ -6,10 +6,160 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
+  output   = "../generated/client"
   moduleFormat    = "cjs"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  password      String
+  name          String
+  phone         String?
+  avatar        String?
+  isVerified    Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  enrollments   Enrollment[]
+  progress      LessonProgress[]
+  notes         Note[]
+  flashcardDecks FlashcardDeck[]
+  payments      Payment[]
+}
+
+model Course {
+  id            Int       @id @default(autoincrement())
+  slug          String    @unique
+  title         String
+  description   String
+  image         String?
+  price         Float
+  originalPrice Float?
+  currency      String    @default("USD")
+  priceETB      Float?
+  published     Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  modules       Module[]
+  enrollments   Enrollment[]
+  payments      Payment[]
+}
+
+model Module {
+  id        Int      @id @default(autoincrement())
+  title     String
+  order     Int      @default(0)
+  courseId  Int
+  course    Course   @relation(fields: [courseId], references: [id])
+  lessons   Lesson[]
+}
+
+model Lesson {
+  id          Int      @id @default(autoincrement())
+  title       String
+  duration    String?
+  overview    String?
+  transcript  String?
+  videoId     String?
+  order       Int      @default(0)
+  moduleId    Int
+  module      Module   @relation(fields: [moduleId], references: [id])
+
+  resources   Resource[]
+  questions   Question[]
+  progress    LessonProgress[]
+}
+
+model Resource {
+  id        Int     @id @default(autoincrement())
+  title     String
+  url       String
+  lessonId  Int
+  lesson    Lesson  @relation(fields: [lessonId], references: [id])
+}
+
+model Question {
+  id            Int      @id @default(autoincrement())
+  question      String
+  options       String[]
+  correctAnswer String
+  lessonId      Int
+  lesson        Lesson   @relation(fields: [lessonId], references: [id])
+}
+
+model Enrollment {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  courseId  Int
+  course    Course   @relation(fields: [courseId], references: [id])
+  enrolledAt DateTime @default(now())
+
+  @@unique([userId, courseId])
+}
+
+model LessonProgress {
+  id            String   @id @default(uuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  lessonId      Int
+  lesson        Lesson   @relation(fields: [lessonId], references: [id])
+  completed     Boolean  @default(false)
+  videoProgress Int      @default(0)
+  quizScore     Int?
+  updatedAt     DateTime @updatedAt
+
+  @@unique([userId, lessonId])
+}
+
+model Note {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  title     String
+  content   String
+  subject   String?
+  tags      String[]
+  starred   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FlashcardDeck {
+  id        String      @id @default(uuid())
+  userId    String
+  user      User        @relation(fields: [userId], references: [id])
+  title     String
+  createdAt DateTime    @default(now())
+  cards     Flashcard[]
+}
+
+model Flashcard {
+  id        String        @id @default(uuid())
+  deckId    String
+  deck      FlashcardDeck @relation(fields: [deckId], references: [id], onDelete: Cascade)
+  front     String
+  back      String
+  createdAt DateTime      @default(now())
+}
+
+model Payment {
+  id            String   @id @default(uuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  courseId      Int
+  course        Course   @relation(fields: [courseId], references: [id])
+  amount        Float
+  currency      String
+  status        String
+  provider      String
+  transactionId String?
+  createdAt     DateTime @default(now())
 }
