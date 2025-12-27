@@ -39,4 +39,10 @@ export class UsersController {
   remove(@Param('id') id: string) {
     return this.usersService.remove(id);
   }
+
+  @Get(':id/books')
+  @ApiOperation({ summary: 'Get user books' })
+  getUserBooks(@Param('id') id: string) {
+    return this.usersService.getUserBooks(id);
+  }
 }

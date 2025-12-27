@@ -11,6 +11,7 @@ export class PaymentService {
       data: {
         userId,
         courseId: createPaymentDto.courseId,
+        bookId: createPaymentDto.bookId,
         amount: createPaymentDto.amount,
         currency: createPaymentDto.currency,
         provider: createPaymentDto.provider,
@@ -28,13 +29,23 @@ export class PaymentService {
       },
     });
 
-    // Enroll user
-    await this.prisma.enrollment.create({
-      data: {
-        userId: payment.userId,
-        courseId: payment.courseId,
-      },
-    });
+    if (payment.courseId) {
+      // Enroll user in course
+      await this.prisma.enrollment.create({
+        data: {
+          userId: payment.userId,
+          courseId: payment.courseId,
+        },
+      });
+    } else if (payment.bookId) {
+      // Add book to user's library
+      await this.prisma.bookPurchase.create({
+        data: {
+          userId: payment.userId,
+          bookId: payment.bookId,
+        },
+      });
+    }
 
     return payment;
   }

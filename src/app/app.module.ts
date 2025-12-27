@@ -12,6 +12,8 @@ import { ProgressModule } from './modules/progress/progress.module';
 import { PaymentModule } from './modules/payment/payment.module';
 import { NotesModule } from './modules/notes/notes.module';
 import { FlashcardModule } from './modules/flashcard/flashcard.module';
+import { BooksModule } from './modules/books/books.module';
+import { ExamsModule } from './modules/exams/exams.module';
 
 @Module({
   imports: [
@@ -26,6 +28,8 @@ import { FlashcardModule } from './modules/flashcard/flashcard.module';
     PaymentModule,
     NotesModule,
     FlashcardModule,
+    BooksModule,
+    ExamsModule,
 
     SharedModule,
 

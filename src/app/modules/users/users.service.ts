@@ -31,6 +31,13 @@ export class UsersService {
   async findByEmail(email: string) {
     return this.prisma.user.findUnique({
       where: { email },
+      include: {
+        enrollments: {
+          include: {
+            course: true,
+          },
+        },
+      },
     });
   }
 
@@ -47,6 +54,13 @@ export class UsersService {
   async remove(id: string) {
     return this.prisma.user.delete({
       where: { id },
+    });
+  }
+
+  async getUserBooks(userId: string) {
+    return this.prisma.bookPurchase.findMany({
+      where: { userId },
+      include: { book: true },
     });
   }
 }
