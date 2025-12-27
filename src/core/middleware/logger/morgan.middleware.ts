@@ -1,6 +1,6 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import * as morgan from 'morgan';
+import morgan from 'morgan';
 import { ConfigService } from '@nestjs/config';
 import { LoggerService } from './logger.middleware';
 

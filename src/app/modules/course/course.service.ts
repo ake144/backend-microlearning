@@ -61,7 +61,12 @@ export class CourseService {
       include: {
         modules: {
           include: {
-            lessons: true,
+            lessons: {
+              include: {
+                resources: true,
+                questions: true,
+              },
+            },
           },
         },
       },

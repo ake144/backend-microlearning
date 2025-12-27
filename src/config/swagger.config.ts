@@ -13,5 +13,5 @@ export function setupSwagger(app) {
     .build();
 
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('docs', app, document);
+  SwaggerModule.setup('api', app, document);
 }
