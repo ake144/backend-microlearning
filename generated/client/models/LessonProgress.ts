@@ -9,8 +9,8 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client"
-import type * as $Enums from "../enums.js"
-import type * as Prisma from "../internal/prismaNamespace.js"
+import type * as $Enums from "../enums"
+import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model LessonProgress
@@ -507,14 +507,6 @@ export type LessonProgressUncheckedUpdateManyWithoutLessonNestedInput = {
   update?: Prisma.LessonProgressUpdateWithWhereUniqueWithoutLessonInput | Prisma.LessonProgressUpdateWithWhereUniqueWithoutLessonInput[]
   updateMany?: Prisma.LessonProgressUpdateManyWithWhereWithoutLessonInput | Prisma.LessonProgressUpdateManyWithWhereWithoutLessonInput[]
   deleteMany?: Prisma.LessonProgressScalarWhereInput | Prisma.LessonProgressScalarWhereInput[]
-}
-
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
 }
 
 export type LessonProgressCreateWithoutUserInput = {

@@ -7,7 +7,6 @@
 generator client {
   provider = "prisma-client"
   output   = "../generated/client"
-  moduleFormat    = "cjs"
   binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 
@@ -27,6 +26,7 @@ model User {
   updatedAt     DateTime  @updatedAt
 
   enrollments   Enrollment[]
+  bookPurchases BookPurchase[]
   progress      LessonProgress[]
   notes         Note[]
   flashcardDecks FlashcardDeck[]
@@ -77,6 +77,76 @@ model Lesson {
   progress    LessonProgress[]
 }
 
+model Book  {
+  id           Int @id @default(autoincrement())
+  title        String
+  author       String
+  longDescription  String?
+  description  String
+  category     String
+  price         Float
+  originalPrice Float?
+  currency      String    @default("USD")
+  priceETB      Float?
+  images        String?
+  pages         Int?
+  language      String   @default("English")
+  format        String   @default("PDF")
+  Publisher     String?
+  edition       String?
+  isbn          String?
+  rating        Float?
+  reviews       Float?
+  downloadUrl   String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  purchases     BookPurchase[]
+  payments      Payment[]
+}
+
+model BookPurchase {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  bookId      Int
+  book        Book     @relation(fields: [bookId], references: [id])
+  purchasedAt DateTime @default(now())
+
+  @@unique([userId, bookId])
+}
+
+model Exam {
+  id            Int      @id @default(autoincrement())
+  title         String
+  description   String
+  category      String
+  level         String
+  type          String   // "Quiz" or "Exam"
+  questions     Int
+  duration      Int      // in minutes
+  passingScore  Float
+  attempts      Int      @default(0)
+  averageScore  Float    @default(0)
+  image         String?
+  topics        String[]
+  requirements  String[]
+  benefits      String[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  examQuestions ExamQuestion[]
+}
+
+model ExamQuestion {
+  id            Int      @id @default(autoincrement())
+  question      String
+  options       String[]
+  correctAnswer Int
+  examId        Int
+  exam          Exam     @relation(fields: [examId], references: [id])
+}
+
 model Resource {
   id        Int     @id @default(autoincrement())
   title     String
@@ -93,6 +163,8 @@ model Question {
   lessonId      Int
   lesson        Lesson   @relation(fields: [lessonId], references: [id])
 }
+
+
 
 model Enrollment {
   id        String   @id @default(uuid())
@@ -154,8 +226,10 @@ model Payment {
   id            String   @id @default(uuid())
   userId        String
   user          User     @relation(fields: [userId], references: [id])
-  courseId      Int
-  course        Course   @relation(fields: [courseId], references: [id])
+  courseId      Int?
+  course        Course?  @relation(fields: [courseId], references: [id])
+  bookId        Int?
+  book          Book?    @relation(fields: [bookId], references: [id])
   amount        Float
   currency      String
   status        String

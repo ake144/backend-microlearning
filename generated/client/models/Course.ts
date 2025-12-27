@@ -9,8 +9,8 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client"
-import type * as $Enums from "../enums.js"
-import type * as Prisma from "../internal/prismaNamespace.js"
+import type * as $Enums from "../enums"
+import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model Course
@@ -544,6 +544,11 @@ export type CourseScalarRelationFilter = {
   isNot?: Prisma.CourseWhereInput
 }
 
+export type CourseNullableScalarRelationFilter = {
+  is?: Prisma.CourseWhereInput | null
+  isNot?: Prisma.CourseWhereInput | null
+}
+
 export type FloatFieldUpdateOperationsInput = {
   set?: number
   increment?: number
@@ -602,10 +607,12 @@ export type CourseCreateNestedOneWithoutPaymentsInput = {
   connect?: Prisma.CourseWhereUniqueInput
 }
 
-export type CourseUpdateOneRequiredWithoutPaymentsNestedInput = {
+export type CourseUpdateOneWithoutPaymentsNestedInput = {
   create?: Prisma.XOR<Prisma.CourseCreateWithoutPaymentsInput, Prisma.CourseUncheckedCreateWithoutPaymentsInput>
   connectOrCreate?: Prisma.CourseCreateOrConnectWithoutPaymentsInput
   upsert?: Prisma.CourseUpsertWithoutPaymentsInput
+  disconnect?: Prisma.CourseWhereInput | boolean
+  delete?: Prisma.CourseWhereInput | boolean
   connect?: Prisma.CourseWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.CourseUpdateToOneWithWhereWithoutPaymentsInput, Prisma.CourseUpdateWithoutPaymentsInput>, Prisma.CourseUncheckedUpdateWithoutPaymentsInput>
 }

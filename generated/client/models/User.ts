@@ -9,8 +9,8 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client"
-import type * as $Enums from "../enums.js"
-import type * as Prisma from "../internal/prismaNamespace.js"
+import type * as $Enums from "../enums"
+import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model User
@@ -215,6 +215,7 @@ export type UserWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   enrollments?: Prisma.EnrollmentListRelationFilter
+  bookPurchases?: Prisma.BookPurchaseListRelationFilter
   progress?: Prisma.LessonProgressListRelationFilter
   notes?: Prisma.NoteListRelationFilter
   flashcardDecks?: Prisma.FlashcardDeckListRelationFilter
@@ -232,6 +233,7 @@ export type UserOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   enrollments?: Prisma.EnrollmentOrderByRelationAggregateInput
+  bookPurchases?: Prisma.BookPurchaseOrderByRelationAggregateInput
   progress?: Prisma.LessonProgressOrderByRelationAggregateInput
   notes?: Prisma.NoteOrderByRelationAggregateInput
   flashcardDecks?: Prisma.FlashcardDeckOrderByRelationAggregateInput
@@ -252,6 +254,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   enrollments?: Prisma.EnrollmentListRelationFilter
+  bookPurchases?: Prisma.BookPurchaseListRelationFilter
   progress?: Prisma.LessonProgressListRelationFilter
   notes?: Prisma.NoteListRelationFilter
   flashcardDecks?: Prisma.FlashcardDeckListRelationFilter
@@ -299,6 +302,7 @@ export type UserCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutUserInput
+  bookPurchases?: Prisma.BookPurchaseCreateNestedManyWithoutUserInput
   progress?: Prisma.LessonProgressCreateNestedManyWithoutUserInput
   notes?: Prisma.NoteCreateNestedManyWithoutUserInput
   flashcardDecks?: Prisma.FlashcardDeckCreateNestedManyWithoutUserInput
@@ -316,6 +320,7 @@ export type UserUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutUserInput
+  bookPurchases?: Prisma.BookPurchaseUncheckedCreateNestedManyWithoutUserInput
   progress?: Prisma.LessonProgressUncheckedCreateNestedManyWithoutUserInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutUserInput
   flashcardDecks?: Prisma.FlashcardDeckUncheckedCreateNestedManyWithoutUserInput
@@ -333,6 +338,7 @@ export type UserUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   enrollments?: Prisma.EnrollmentUpdateManyWithoutUserNestedInput
+  bookPurchases?: Prisma.BookPurchaseUpdateManyWithoutUserNestedInput
   progress?: Prisma.LessonProgressUpdateManyWithoutUserNestedInput
   notes?: Prisma.NoteUpdateManyWithoutUserNestedInput
   flashcardDecks?: Prisma.FlashcardDeckUpdateManyWithoutUserNestedInput
@@ -350,6 +356,7 @@ export type UserUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  bookPurchases?: Prisma.BookPurchaseUncheckedUpdateManyWithoutUserNestedInput
   progress?: Prisma.LessonProgressUncheckedUpdateManyWithoutUserNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutUserNestedInput
   flashcardDecks?: Prisma.FlashcardDeckUncheckedUpdateManyWithoutUserNestedInput
@@ -449,6 +456,20 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+export type UserCreateNestedOneWithoutBookPurchasesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBookPurchasesInput, Prisma.UserUncheckedCreateWithoutBookPurchasesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBookPurchasesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutBookPurchasesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBookPurchasesInput, Prisma.UserUncheckedCreateWithoutBookPurchasesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBookPurchasesInput
+  upsert?: Prisma.UserUpsertWithoutBookPurchasesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBookPurchasesInput, Prisma.UserUpdateWithoutBookPurchasesInput>, Prisma.UserUncheckedUpdateWithoutBookPurchasesInput>
+}
+
 export type UserCreateNestedOneWithoutEnrollmentsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutEnrollmentsInput, Prisma.UserUncheckedCreateWithoutEnrollmentsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutEnrollmentsInput
@@ -519,6 +540,90 @@ export type UserUpdateOneRequiredWithoutPaymentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPaymentsInput, Prisma.UserUpdateWithoutPaymentsInput>, Prisma.UserUncheckedUpdateWithoutPaymentsInput>
 }
 
+export type UserCreateWithoutBookPurchasesInput = {
+  id?: string
+  email: string
+  password: string
+  name: string
+  phone?: string | null
+  avatar?: string | null
+  isVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  enrollments?: Prisma.EnrollmentCreateNestedManyWithoutUserInput
+  progress?: Prisma.LessonProgressCreateNestedManyWithoutUserInput
+  notes?: Prisma.NoteCreateNestedManyWithoutUserInput
+  flashcardDecks?: Prisma.FlashcardDeckCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutBookPurchasesInput = {
+  id?: string
+  email: string
+  password: string
+  name: string
+  phone?: string | null
+  avatar?: string | null
+  isVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutUserInput
+  progress?: Prisma.LessonProgressUncheckedCreateNestedManyWithoutUserInput
+  notes?: Prisma.NoteUncheckedCreateNestedManyWithoutUserInput
+  flashcardDecks?: Prisma.FlashcardDeckUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutBookPurchasesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBookPurchasesInput, Prisma.UserUncheckedCreateWithoutBookPurchasesInput>
+}
+
+export type UserUpsertWithoutBookPurchasesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBookPurchasesInput, Prisma.UserUncheckedUpdateWithoutBookPurchasesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBookPurchasesInput, Prisma.UserUncheckedCreateWithoutBookPurchasesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutBookPurchasesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBookPurchasesInput, Prisma.UserUncheckedUpdateWithoutBookPurchasesInput>
+}
+
+export type UserUpdateWithoutBookPurchasesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  enrollments?: Prisma.EnrollmentUpdateManyWithoutUserNestedInput
+  progress?: Prisma.LessonProgressUpdateManyWithoutUserNestedInput
+  notes?: Prisma.NoteUpdateManyWithoutUserNestedInput
+  flashcardDecks?: Prisma.FlashcardDeckUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBookPurchasesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  progress?: Prisma.LessonProgressUncheckedUpdateManyWithoutUserNestedInput
+  notes?: Prisma.NoteUncheckedUpdateManyWithoutUserNestedInput
+  flashcardDecks?: Prisma.FlashcardDeckUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+}
+
 export type UserCreateWithoutEnrollmentsInput = {
   id?: string
   email: string
@@ -529,6 +634,7 @@ export type UserCreateWithoutEnrollmentsInput = {
   isVerified?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  bookPurchases?: Prisma.BookPurchaseCreateNestedManyWithoutUserInput
   progress?: Prisma.LessonProgressCreateNestedManyWithoutUserInput
   notes?: Prisma.NoteCreateNestedManyWithoutUserInput
   flashcardDecks?: Prisma.FlashcardDeckCreateNestedManyWithoutUserInput
@@ -545,6 +651,7 @@ export type UserUncheckedCreateWithoutEnrollmentsInput = {
   isVerified?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  bookPurchases?: Prisma.BookPurchaseUncheckedCreateNestedManyWithoutUserInput
   progress?: Prisma.LessonProgressUncheckedCreateNestedManyWithoutUserInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutUserInput
   flashcardDecks?: Prisma.FlashcardDeckUncheckedCreateNestedManyWithoutUserInput
@@ -577,6 +684,7 @@ export type UserUpdateWithoutEnrollmentsInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bookPurchases?: Prisma.BookPurchaseUpdateManyWithoutUserNestedInput
   progress?: Prisma.LessonProgressUpdateManyWithoutUserNestedInput
   notes?: Prisma.NoteUpdateManyWithoutUserNestedInput
   flashcardDecks?: Prisma.FlashcardDeckUpdateManyWithoutUserNestedInput
@@ -593,6 +701,7 @@ export type UserUncheckedUpdateWithoutEnrollmentsInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bookPurchases?: Prisma.BookPurchaseUncheckedUpdateManyWithoutUserNestedInput
   progress?: Prisma.LessonProgressUncheckedUpdateManyWithoutUserNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutUserNestedInput
   flashcardDecks?: Prisma.FlashcardDeckUncheckedUpdateManyWithoutUserNestedInput
@@ -610,6 +719,7 @@ export type UserCreateWithoutProgressInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutUserInput
+  bookPurchases?: Prisma.BookPurchaseCreateNestedManyWithoutUserInput
   notes?: Prisma.NoteCreateNestedManyWithoutUserInput
   flashcardDecks?: Prisma.FlashcardDeckCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
@@ -626,6 +736,7 @@ export type UserUncheckedCreateWithoutProgressInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutUserInput
+  bookPurchases?: Prisma.BookPurchaseUncheckedCreateNestedManyWithoutUserInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutUserInput
   flashcardDecks?: Prisma.FlashcardDeckUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
@@ -658,6 +769,7 @@ export type UserUpdateWithoutProgressInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   enrollments?: Prisma.EnrollmentUpdateManyWithoutUserNestedInput
+  bookPurchases?: Prisma.BookPurchaseUpdateManyWithoutUserNestedInput
   notes?: Prisma.NoteUpdateManyWithoutUserNestedInput
   flashcardDecks?: Prisma.FlashcardDeckUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
@@ -674,6 +786,7 @@ export type UserUncheckedUpdateWithoutProgressInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  bookPurchases?: Prisma.BookPurchaseUncheckedUpdateManyWithoutUserNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutUserNestedInput
   flashcardDecks?: Prisma.FlashcardDeckUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
@@ -690,6 +803,7 @@ export type UserCreateWithoutNotesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutUserInput
+  bookPurchases?: Prisma.BookPurchaseCreateNestedManyWithoutUserInput
   progress?: Prisma.LessonProgressCreateNestedManyWithoutUserInput
   flashcardDecks?: Prisma.FlashcardDeckCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
@@ -706,6 +820,7 @@ export type UserUncheckedCreateWithoutNotesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutUserInput
+  bookPurchases?: Prisma.BookPurchaseUncheckedCreateNestedManyWithoutUserInput
   progress?: Prisma.LessonProgressUncheckedCreateNestedManyWithoutUserInput
   flashcardDecks?: Prisma.FlashcardDeckUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
@@ -738,6 +853,7 @@ export type UserUpdateWithoutNotesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   enrollments?: Prisma.EnrollmentUpdateManyWithoutUserNestedInput
+  bookPurchases?: Prisma.BookPurchaseUpdateManyWithoutUserNestedInput
   progress?: Prisma.LessonProgressUpdateManyWithoutUserNestedInput
   flashcardDecks?: Prisma.FlashcardDeckUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
@@ -754,6 +870,7 @@ export type UserUncheckedUpdateWithoutNotesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  bookPurchases?: Prisma.BookPurchaseUncheckedUpdateManyWithoutUserNestedInput
   progress?: Prisma.LessonProgressUncheckedUpdateManyWithoutUserNestedInput
   flashcardDecks?: Prisma.FlashcardDeckUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
@@ -770,6 +887,7 @@ export type UserCreateWithoutFlashcardDecksInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutUserInput
+  bookPurchases?: Prisma.BookPurchaseCreateNestedManyWithoutUserInput
   progress?: Prisma.LessonProgressCreateNestedManyWithoutUserInput
   notes?: Prisma.NoteCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
@@ -786,6 +904,7 @@ export type UserUncheckedCreateWithoutFlashcardDecksInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutUserInput
+  bookPurchases?: Prisma.BookPurchaseUncheckedCreateNestedManyWithoutUserInput
   progress?: Prisma.LessonProgressUncheckedCreateNestedManyWithoutUserInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
@@ -818,6 +937,7 @@ export type UserUpdateWithoutFlashcardDecksInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   enrollments?: Prisma.EnrollmentUpdateManyWithoutUserNestedInput
+  bookPurchases?: Prisma.BookPurchaseUpdateManyWithoutUserNestedInput
   progress?: Prisma.LessonProgressUpdateManyWithoutUserNestedInput
   notes?: Prisma.NoteUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
@@ -834,6 +954,7 @@ export type UserUncheckedUpdateWithoutFlashcardDecksInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  bookPurchases?: Prisma.BookPurchaseUncheckedUpdateManyWithoutUserNestedInput
   progress?: Prisma.LessonProgressUncheckedUpdateManyWithoutUserNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
@@ -850,6 +971,7 @@ export type UserCreateWithoutPaymentsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutUserInput
+  bookPurchases?: Prisma.BookPurchaseCreateNestedManyWithoutUserInput
   progress?: Prisma.LessonProgressCreateNestedManyWithoutUserInput
   notes?: Prisma.NoteCreateNestedManyWithoutUserInput
   flashcardDecks?: Prisma.FlashcardDeckCreateNestedManyWithoutUserInput
@@ -866,6 +988,7 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutUserInput
+  bookPurchases?: Prisma.BookPurchaseUncheckedCreateNestedManyWithoutUserInput
   progress?: Prisma.LessonProgressUncheckedCreateNestedManyWithoutUserInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutUserInput
   flashcardDecks?: Prisma.FlashcardDeckUncheckedCreateNestedManyWithoutUserInput
@@ -898,6 +1021,7 @@ export type UserUpdateWithoutPaymentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   enrollments?: Prisma.EnrollmentUpdateManyWithoutUserNestedInput
+  bookPurchases?: Prisma.BookPurchaseUpdateManyWithoutUserNestedInput
   progress?: Prisma.LessonProgressUpdateManyWithoutUserNestedInput
   notes?: Prisma.NoteUpdateManyWithoutUserNestedInput
   flashcardDecks?: Prisma.FlashcardDeckUpdateManyWithoutUserNestedInput
@@ -914,6 +1038,7 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  bookPurchases?: Prisma.BookPurchaseUncheckedUpdateManyWithoutUserNestedInput
   progress?: Prisma.LessonProgressUncheckedUpdateManyWithoutUserNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutUserNestedInput
   flashcardDecks?: Prisma.FlashcardDeckUncheckedUpdateManyWithoutUserNestedInput
@@ -926,6 +1051,7 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
 
 export type UserCountOutputType = {
   enrollments: number
+  bookPurchases: number
   progress: number
   notes: number
   flashcardDecks: number
@@ -934,6 +1060,7 @@ export type UserCountOutputType = {
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   enrollments?: boolean | UserCountOutputTypeCountEnrollmentsArgs
+  bookPurchases?: boolean | UserCountOutputTypeCountBookPurchasesArgs
   progress?: boolean | UserCountOutputTypeCountProgressArgs
   notes?: boolean | UserCountOutputTypeCountNotesArgs
   flashcardDecks?: boolean | UserCountOutputTypeCountFlashcardDecksArgs
@@ -955,6 +1082,13 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
  */
 export type UserCountOutputTypeCountEnrollmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.EnrollmentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountBookPurchasesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BookPurchaseWhereInput
 }
 
 /**
@@ -997,6 +1131,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   updatedAt?: boolean
   enrollments?: boolean | Prisma.User$enrollmentsArgs<ExtArgs>
+  bookPurchases?: boolean | Prisma.User$bookPurchasesArgs<ExtArgs>
   progress?: boolean | Prisma.User$progressArgs<ExtArgs>
   notes?: boolean | Prisma.User$notesArgs<ExtArgs>
   flashcardDecks?: boolean | Prisma.User$flashcardDecksArgs<ExtArgs>
@@ -1043,6 +1178,7 @@ export type UserSelectScalar = {
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "name" | "phone" | "avatar" | "isVerified" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   enrollments?: boolean | Prisma.User$enrollmentsArgs<ExtArgs>
+  bookPurchases?: boolean | Prisma.User$bookPurchasesArgs<ExtArgs>
   progress?: boolean | Prisma.User$progressArgs<ExtArgs>
   notes?: boolean | Prisma.User$notesArgs<ExtArgs>
   flashcardDecks?: boolean | Prisma.User$flashcardDecksArgs<ExtArgs>
@@ -1056,6 +1192,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "User"
   objects: {
     enrollments: Prisma.$EnrollmentPayload<ExtArgs>[]
+    bookPurchases: Prisma.$BookPurchasePayload<ExtArgs>[]
     progress: Prisma.$LessonProgressPayload<ExtArgs>[]
     notes: Prisma.$NotePayload<ExtArgs>[]
     flashcardDecks: Prisma.$FlashcardDeckPayload<ExtArgs>[]
@@ -1466,6 +1603,7 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   enrollments<T extends Prisma.User$enrollmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$enrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EnrollmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bookPurchases<T extends Prisma.User$bookPurchasesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$bookPurchasesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookPurchasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   progress<T extends Prisma.User$progressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$progressArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LessonProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notes<T extends Prisma.User$notesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   flashcardDecks<T extends Prisma.User$flashcardDecksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$flashcardDecksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FlashcardDeckPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -1917,6 +2055,30 @@ export type User$enrollmentsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.EnrollmentScalarFieldEnum | Prisma.EnrollmentScalarFieldEnum[]
+}
+
+/**
+ * User.bookPurchases
+ */
+export type User$bookPurchasesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BookPurchase
+   */
+  select?: Prisma.BookPurchaseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BookPurchase
+   */
+  omit?: Prisma.BookPurchaseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BookPurchaseInclude<ExtArgs> | null
+  where?: Prisma.BookPurchaseWhereInput
+  orderBy?: Prisma.BookPurchaseOrderByWithRelationInput | Prisma.BookPurchaseOrderByWithRelationInput[]
+  cursor?: Prisma.BookPurchaseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BookPurchaseScalarFieldEnum | Prisma.BookPurchaseScalarFieldEnum[]
 }
 
 /**

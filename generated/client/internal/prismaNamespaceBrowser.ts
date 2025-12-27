@@ -17,8 +17,8 @@
 
 import * as runtime from "@prisma/client/runtime/index-browser"
 
-export type * from '../models.js'
-export type * from './prismaNamespace.js'
+export type * from '../models'
+export type * from './prismaNamespace'
 
 export const Decimal = runtime.Decimal
 
@@ -55,6 +55,10 @@ export const ModelName = {
   Course: 'Course',
   Module: 'Module',
   Lesson: 'Lesson',
+  Book: 'Book',
+  BookPurchase: 'BookPurchase',
+  Exam: 'Exam',
+  ExamQuestion: 'ExamQuestion',
   Resource: 'Resource',
   Question: 'Question',
   Enrollment: 'Enrollment',
@@ -136,6 +140,78 @@ export const LessonScalarFieldEnum = {
 } as const
 
 export type LessonScalarFieldEnum = (typeof LessonScalarFieldEnum)[keyof typeof LessonScalarFieldEnum]
+
+
+export const BookScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  author: 'author',
+  longDescription: 'longDescription',
+  description: 'description',
+  category: 'category',
+  price: 'price',
+  originalPrice: 'originalPrice',
+  currency: 'currency',
+  priceETB: 'priceETB',
+  images: 'images',
+  pages: 'pages',
+  language: 'language',
+  format: 'format',
+  Publisher: 'Publisher',
+  edition: 'edition',
+  isbn: 'isbn',
+  rating: 'rating',
+  reviews: 'reviews',
+  downloadUrl: 'downloadUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BookScalarFieldEnum = (typeof BookScalarFieldEnum)[keyof typeof BookScalarFieldEnum]
+
+
+export const BookPurchaseScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  bookId: 'bookId',
+  purchasedAt: 'purchasedAt'
+} as const
+
+export type BookPurchaseScalarFieldEnum = (typeof BookPurchaseScalarFieldEnum)[keyof typeof BookPurchaseScalarFieldEnum]
+
+
+export const ExamScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  category: 'category',
+  level: 'level',
+  type: 'type',
+  questions: 'questions',
+  duration: 'duration',
+  passingScore: 'passingScore',
+  attempts: 'attempts',
+  averageScore: 'averageScore',
+  image: 'image',
+  topics: 'topics',
+  requirements: 'requirements',
+  benefits: 'benefits',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ExamScalarFieldEnum = (typeof ExamScalarFieldEnum)[keyof typeof ExamScalarFieldEnum]
+
+
+export const ExamQuestionScalarFieldEnum = {
+  id: 'id',
+  question: 'question',
+  options: 'options',
+  correctAnswer: 'correctAnswer',
+  examId: 'examId'
+} as const
+
+export type ExamQuestionScalarFieldEnum = (typeof ExamQuestionScalarFieldEnum)[keyof typeof ExamQuestionScalarFieldEnum]
 
 
 export const ResourceScalarFieldEnum = {
@@ -222,6 +298,7 @@ export const PaymentScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   courseId: 'courseId',
+  bookId: 'bookId',
   amount: 'amount',
   currency: 'currency',
   status: 'status',
