@@ -1,6 +1,7 @@
 import { Pool } from 'pg';
 import { PrismaPg } from '@prisma/adapter-pg';
-import { PrismaClient } from '../generated/client/client';
+import { PrismaClient } from 'src/generated/client';
+
 
 const connectionString = process.env.DATABASE_URL;
 const pool = new Pool({ connectionString });
@@ -157,7 +158,7 @@ async function main() {
 
   for (const courseData of courses) {
     const { modules, ...course } = courseData;
-    
+
     const createdCourse = await prisma.course.upsert({
       where: { slug: course.slug },
       update: {},
@@ -203,7 +204,7 @@ async function main() {
       passingScore: 70,
       attempts: 1250,
       averageScore: 78,
-      image:"https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80",
+      image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80",
       topics: [
         "Python Syntax and Variables",
         "Data Types and Operators",
@@ -315,7 +316,7 @@ async function main() {
 
   for (const [id, examData] of Object.entries(exams)) {
     const questions = examQuestions[id as unknown as keyof typeof examQuestions] || [];
-    
+
     // Upsert Exam
     const exam = await prisma.exam.upsert({
       where: { id: Number(id) },
