@@ -1,13 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors } from '@nestjs/common';
 import { CourseService } from './course.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { CacheInterceptor, CacheKey, CacheTTL } from '@nestjs/cache-manager';
 
 @ApiTags('courses')
 @Controller('courses')
 export class CourseController {
-  constructor(private readonly courseService: CourseService) {}
+  constructor(private readonly courseService: CourseService) { }
 
   @Post()
   @ApiOperation({ summary: 'Create a new course' })
@@ -16,12 +17,16 @@ export class CourseController {
   }
 
   @Get()
+  @UseInterceptors(CacheInterceptor)
+  @CacheKey('courses_all')
+  @CacheTTL(300) // 5 minutes
   @ApiOperation({ summary: 'Get all courses' })
   findAll() {
     return this.courseService.findAll();
   }
 
   @Get(':slug')
+  @UseInterceptors(CacheInterceptor)
   @ApiOperation({ summary: 'Get a course by slug' })
   findOne(@Param('slug') slug: string) {
     return this.courseService.findOne(slug);

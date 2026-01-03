@@ -21,4 +21,10 @@ export const configuration = () => ({
     type: process.env.DB_TYPE,
     synchronize: Boolean(process.env.DB_SYNCHRONIZE_ENTITIES),
   },
+
+  redis: {
+    host: process.env.REDIS_HOST,
+    port: parseInt(process.env.REDIS_PORT || '6379', 10),
+    ttl: parseInt(process.env.REDIS_TTL || '3600', 10),
+  },
 });

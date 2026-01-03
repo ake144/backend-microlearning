@@ -21,4 +21,7 @@ export const validationSchema = Joi.object({
   DB_PASSWORD: Joi.string().required(),
   DB_TYPE: Joi.string().required().valid('postgres', 'mysql'),
   DB_SYNCHRONIZE_ENTITIES: Joi.boolean().required(),
+  REDIS_HOST: Joi.string().required(),
+  REDIS_PORT: Joi.number().default(6379),
+  REDIS_TTL: Joi.number().default(3600),
 });

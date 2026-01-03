@@ -5,9 +5,9 @@ import { validationSchema } from "./vaidation";
 
 const configModule = ConfigModule.forRoot({
     isGlobal: true,
-    envFilePath: `./.env`,
+    envFilePath: `../../.env`,
 
-    load:[configuration],
+    load: [configuration],
     validationSchema: validationSchema
 });
 
@@ -17,4 +17,4 @@ const configModule = ConfigModule.forRoot({
     exports: [ConfigModule],
 })
 
-export class AppConfigModule {}
+export class AppConfigModule { }
