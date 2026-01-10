@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { CacheModule } from '@nestjs/cache-manager';
-import * as redisStore from 'cache-manager-redis-store';
+import { redisStore } from 'cache-manager-redis-store';
 import { ConfigService } from '@nestjs/config';
 import { CoreModule } from './core.module';
 import { AppConfigModule } from 'src/config/app.config';
@@ -40,9 +40,11 @@ import { ExamsModule } from './modules/exams/exams.module';
       isGlobal: true,
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        store: redisStore,
-        host: configService.get('redis.host'),
-        port: configService.get('redis.port'),
+        store: redisStore as any,
+        socket: {
+          host: configService.get('redis.host'),
+          port: configService.get('redis.port'),
+        },
         ttl: configService.get('redis.ttl'),
       }),
       inject: [ConfigService],

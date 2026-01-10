@@ -153,6 +153,190 @@ async function main() {
           ]
         }
       ]
+    },
+    {
+      slug: "complete-web-development-bootcamp",
+      title: "Complete Web Development Bootcamp",
+      description: "Become a full-stack web developer with just one course. HTML, CSS, JavaScript, Node, React, MongoDB and more!",
+      image: "https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=2064&auto=format&fit=crop&ixlib=rb-4.0.3",
+      price: 45,
+      currency: 'USD',
+      priceETB: 4500,
+      published: true,
+      modules: [
+        {
+          title: "Introduction to Web Development",
+          order: 1,
+          lessons: [
+            {
+              title: "How the Internet Works",
+              duration: "08:15",
+              videoId: "tjXIfam5qLE",
+              overview: "Understanding the basic concepts of the web.",
+              transcript: "DNS, HTTP, Client-Server model explained.",
+              order: 1,
+              resources: [
+                { title: "Web Basics PDF", url: "#" }
+              ]
+            }
+          ]
+        },
+        {
+          title: "HTML 5 - Structuring the Web",
+          order: 2,
+          lessons: [
+            {
+              title: "HTML Structure",
+              duration: "12:30",
+              videoId: "tjXIfam5qLE",
+              overview: "The anatomy of an HTML element.",
+              transcript: "Tags, attributes, and document structure.",
+              order: 1,
+              resources: []
+            },
+            {
+              title: "Forms and Semantic HTML",
+              duration: "15:45",
+              videoId: "tjXIfam5qLE",
+              overview: "Creating input forms and using semantic tags.",
+              transcript: "Input types, labels, usage of header, footer, article tags.",
+              order: 2,
+              resources: [
+                { title: "HTML Cheatsheet", url: "#" }
+              ]
+            }
+          ]
+        },
+        {
+          title: "CSS 3 - Styling the Web",
+          order: 3,
+          lessons: [
+            {
+              title: "Selectors and Properties",
+              duration: "18:00",
+              videoId: "tjXIfam5qLE",
+              overview: "How to target elements and apply styles.",
+              transcript: "Class vs ID, specificity, basic properties.",
+              order: 1,
+              resources: []
+            },
+            {
+              title: "Flexbox and Grid",
+              duration: "22:15",
+              videoId: "tjXIfam5qLE",
+              overview: "Modern layout techniques.",
+              transcript: "Building responsive layouts with Flexbox and Grid.",
+              order: 2,
+              resources: [
+                { title: "Flexbox Guide", url: "#" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      slug: "digital-marketing-masterclass",
+      title: "Digital Marketing Masterclass",
+      description: "Master Digital Marketing Strategy, Social Media Marketing, SEO, YouTube, Email, Facebook Marketing, Analytics & More!",
+      image: "https://images.unsplash.com/photo-1533750516457-a7f992034fec?q=80&w=2006&auto=format&fit=crop&ixlib=rb-4.0.3",
+      price: 25,
+      currency: 'USD',
+      priceETB: 2800,
+      published: true,
+      modules: [
+        {
+          title: "Marketing Fundamentals",
+          order: 1,
+          lessons: [
+            {
+              title: "What is Digital Marketing?",
+              duration: "10:00",
+              videoId: "tjXIfam5qLE",
+              overview: "Introduction to the digital marketing landscape.",
+              transcript: "Overview of channels and strategies.",
+              order: 1,
+              resources: []
+            }
+          ]
+        },
+        {
+          title: "Social Media Marketing",
+          order: 2,
+          lessons: [
+            {
+              title: "Facebook Marketing Strategy",
+              duration: "20:00",
+              videoId: "tjXIfam5qLE",
+              overview: "How to grow a brand on Facebook.",
+              transcript: "Pages, groups, and ad basics.",
+              order: 1,
+              resources: [
+                { title: "FB Ad Checklist", url: "#" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      slug: "data-science-a-z",
+      title: "Data Science A-Z: Real-Life Data Science Exercises Included",
+      description: "Learn Data Science step by step through real Analytics examples. Data Mining, Modeling, Tableau Visualization and more!",
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3",
+      price: 60,
+      currency: 'USD',
+      priceETB: 6000,
+      published: true,
+      modules: [
+        {
+          title: "Introduction to Data Science",
+          order: 1,
+          lessons: [
+            {
+              title: "What is Data Science?",
+              duration: "10:00",
+              videoId: "tjXIfam5qLE",
+              overview: "The definition and scope of Data Science.",
+              transcript: "Data mining, machine learning, and visualization introduction.",
+              order: 1,
+              resources: []
+            }
+          ]
+        },
+        {
+          title: "Data Visualization with Tableau",
+          order: 2,
+          lessons: [
+            {
+              title: "Tableau Interface",
+              duration: "15:00",
+              videoId: "tjXIfam5qLE",
+              overview: "Navigating the Tableau interface.",
+              transcript: "Connecting to data sources and creating first charts.",
+              order: 1,
+              resources: [
+                { title: "Tableau Dataset", url: "#" }
+              ]
+            }
+          ]
+        },
+        {
+          title: "Machine Learning Basics",
+          order: 3,
+          lessons: [
+            {
+              title: "Linear Regression",
+              duration: "20:00",
+              videoId: "tjXIfam5qLE",
+              overview: "Understanding simple linear regression.",
+              transcript: "Mathematical concepts and practical application.",
+              order: 1,
+              resources: []
+            }
+          ]
+        }
+      ]
     }
   ];
 
@@ -358,4 +542,5 @@ main()
   })
   .finally(async () => {
     await prisma.$disconnect();
+    await pool.end();
   });

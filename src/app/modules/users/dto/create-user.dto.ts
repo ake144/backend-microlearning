@@ -22,4 +22,9 @@ export class CreateUserDto {
   @IsString()
   @IsOptional()
   phone?: string;
+
+  @ApiProperty({ example: 'REF123', description: 'Referral code', required: false })
+  @IsString()
+  @IsOptional()
+  refCode?: string;
 }

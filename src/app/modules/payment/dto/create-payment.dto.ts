@@ -23,4 +23,9 @@ export class CreatePaymentDto {
   @ApiProperty()
   @IsString()
   provider: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  refCode?: string;
 }

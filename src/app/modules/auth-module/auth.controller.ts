@@ -25,4 +25,16 @@ export class AuthController {
   async register(@Body() createUserDto: CreateUserDto) {
     return this.authService.register(createUserDto);
   }
+
+  @Post('refresh')
+  @ApiOperation({ summary: 'Refresh access token' })
+  async refresh(@Body('refresh_token') refreshToken: string) {
+    return this.authService.refresh(refreshToken);
+  }
+
+  @Post('logout')
+  @ApiOperation({ summary: 'Logout user' })
+  async logout(@Body('refresh_token') refreshToken: string) {
+    return this.authService.logout(refreshToken);
+  }
 }

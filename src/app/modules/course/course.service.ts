@@ -65,6 +65,7 @@ export class CourseService {
   }
 
   async findAll() {
+    console.log('Fetching courses from DATABASE...');
     return this.prisma.course.findMany({
       include: {
         modules: {
