@@ -112,9 +112,7 @@ export class CourseService {
     });
 
     await this.cacheManager.del('courses_all');
-    // Also invalidate specific course if we were caching by ID/Slug
-    // await this.cacheManager.del(`courses_${id}`); 
-
+    
     return updatedCourse;
   }
 
