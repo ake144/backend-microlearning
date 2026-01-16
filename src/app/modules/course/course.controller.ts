@@ -43,4 +43,11 @@ export class CourseController {
   remove(@Param('id') id: string) {
     return this.courseService.remove(+id);
   }
+
+  @Get('search/:query')
+  @UseInterceptors(CacheInterceptor)
+  @ApiOperation({ summary: 'Search courses by title or description' })
+  search(@Param('query') query: string) {
+    return this.courseService.search(query);
+  }
 }

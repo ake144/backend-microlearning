@@ -124,4 +124,37 @@ export class CourseService {
     await this.cacheManager.del('courses_all');
     return deletedCourse;
   }
+
+
+  async search(query:string){
+  if(!query){
+    throw new Error('Query parameter is required');
+  }
+
+  let course = await this.prisma.course.findMany({
+    where: {
+      OR: [
+        { title: { contains: query, mode: 'insensitive' } },
+        { description: { contains: query, mode: 'insensitive' } },
+      ],
+    },
+    include: {
+      modules: {
+        include: {
+          lessons: {
+            include: {
+              resources: true,
+              questions: true,
+            },
+          },
+        },
+      },
+    },
+  });
+  return course;
 }
+
+}
+
+
+
