@@ -37,4 +37,16 @@ export class AuthController {
   async logout(@Body('refresh_token') refreshToken: string) {
     return this.authService.logout(refreshToken);
   }
+
+  @Post('forgot-password')
+  @ApiOperation({ summary: 'Initiate password reset' })
+  async forgotPassword(@Body('email') email: string) {
+    return this.authService.forgotPassword(email);
+  }
+
+  @Post('reset-password')
+  @ApiOperation({ summary: 'Reset user password' })
+  async resetPassword(@Body() body: { token: string; newPassword: string }) {
+    return this.authService.resetPassword(body.token, body.newPassword);
+  }
 }

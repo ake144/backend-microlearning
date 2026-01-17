@@ -7,6 +7,7 @@ import { CreateUserDto } from '../users/dto/create-user.dto';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { randomUUID } from 'crypto';
+import { EmailService } from '../email-module/email.service';
 
 @Injectable()
 export class AuthService {
@@ -14,6 +15,7 @@ export class AuthService {
     private usersService: UsersService,
     private jwtService: JwtService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
+    private emailService: EmailService,
   ) {}
 
   async validateUser(email: string, pass: string): Promise<any> {
@@ -68,5 +70,35 @@ export class AuthService {
     const user = await this.usersService.create(createUserDto);
     const { password, ...result } = user;
     return this.login(result);
+  }
+
+  async forgotPassword(email: string) {
+    const user = await this.usersService.findByEmail(email);
+    if (!user) {
+      throw new UnauthorizedException('User with this email does not exist');
+    }
+
+    const resetToken = randomUUID();
+
+    await this.cacheManager.set(`reset_token:${resetToken}`, user.id, 3600000); // 1 hour expiration
+    
+    // Send email
+    await this.emailService.sendPasswordResetEmail(user.email, resetToken);
+
+    return  {message: 'Password reset email sent', status: 'success' };
+  }
+
+  async resetPassword(token: string, newPassword: string) {
+    const userId = await this.cacheManager.get<string>(`reset_token:${token}`);
+    if (!userId) {
+      throw new UnauthorizedException('Invalid or expired password reset token');
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await this.usersService.update(userId, { password: hashedPassword });
+
+    await this.cacheManager.del(`reset_token:${token}`);
+
+    return { message: 'Password has been reset successfully', status: 'success' };
   }
 }
