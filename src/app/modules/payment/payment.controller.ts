@@ -42,4 +42,12 @@ export class PaymentController {
 
     return { received: true };
   }
+
+
+  @Post('chapa')
+  @ApiOperation({ summary: 'Chapa payment webhook' })
+  async chapaWebhook(@Body() payload : any) {
+    return this.paymentService.handleChapaWebhook(payload);
 }
+}
+

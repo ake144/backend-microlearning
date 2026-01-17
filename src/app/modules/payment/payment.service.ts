@@ -3,6 +3,7 @@ import { PrismaService } from 'src/database/prisma.service';
 import { CreatePaymentDto } from './dto/create-payment.dto';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
+import axios from 'axios';
 
 @Injectable()
 export class PaymentService {
@@ -124,4 +125,74 @@ export class PaymentService {
 
     return updatedPayment;
   }
+
+
+
+  async handleChapaWebhook(payload: any) {
+
+    const CHAPA_SECRET_KEY = process.env.CHAPA_SECRET_KEY || '';
+    const CHAPA_API_URL = 'https://api.chapa.co/v1/transaction/initialize';
+
+
+
+    const { amount, email,currency, phone_number,first_name, last_name, tx_ref, slug } = payload;
+    
+    console.log('Chapa webhook payload:', payload);
+
+    try{
+
+      
+    const payloadData:any  = {
+      amount: amount.toString(),
+      currency: currency,
+      email: email,
+      first_name,
+      last_name,
+      tx_ref,
+      callback_url: `https://globalpathway.esperanza.et/api/payment/chapa/callback`,
+      return_url: `https://globalpathway.esperanza.et/checkout/success?slug=${slug}`,
+      customization: {
+          title: 'Enrollment',
+          description: 'Payment for course access',
+      },
+
+    };
+    if(phone_number){
+      payloadData.phone_number = phone_number;
+    }
+
+    console.log('Prepared Chapa payload data:', payloadData);
+
+
+    const response = await axios.post(CHAPA_API_URL, payloadData, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${CHAPA_SECRET_KEY}`,
+      },
+    });
+
+    console.log('Chapa API response:', response.data);
+    
+    const data =  response.data;
+     if(data.status === 'success'){
+        return {
+          checkout_url: data.data.checkout_url,
+          message: 'Chapa payment initiated successfully',
+        };
+     } else {
+      return {
+        error: 'Failed to initiate Chapa payment',
+        details: data,
+      };
+     }
+
+  }
+  catch(error){
+    console.error('Error handling Chapa webhook:', error.message);
+  return   { error:error };
+  }
 }
+
+
+
+  }
